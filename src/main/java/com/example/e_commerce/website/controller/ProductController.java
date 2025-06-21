@@ -9,10 +9,12 @@ import com.example.e_commerce.website.service.ProductService;
 import com.example.e_commerce.website.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
@@ -24,6 +26,7 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @PreAuthorize("hasRole('SELLER')")
     @PostMapping("/upload")
     public String addProduct(@Valid @RequestBody ProductUploadRequest request){
         String response = productService.addProduct(request);
@@ -36,18 +39,21 @@ public class ProductController {
         return product;
     }
 
+    @PreAuthorize("hasAnyRole('SELLER', 'CUSTOMER')")
     @GetMapping("/findAll")
     public List<ProductResponse> findAllPro(){
         List<ProductResponse> responses = productService.findAllProducts();
         return responses;
     }
 
+    @PreAuthorize("hasRole('SELLER')")
     @PutMapping("/update/{id}")
     public String updateProductById(@Valid @RequestBody EditProductRequest request,@PathVariable Long id){
         String response = productService.updateById(request, id);
         return response;
     }
 
+    @PreAuthorize("hasRole('SELLER')")
     @DeleteMapping("/delete/{id}")
     public String deleteProductById(@PathVariable Long id){
         String response = productService.deleteProductById(id);

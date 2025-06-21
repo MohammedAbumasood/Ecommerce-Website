@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class CartResponse {
-
         private Long id;
         private Long userId;
         private Long productId;

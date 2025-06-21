@@ -1,7 +1,6 @@
 package com.example.e_commerce.website.service;
 
 import com.example.e_commerce.website.dtos.EditProfileRequest;
-import com.example.e_commerce.website.dtos.UserLoginRequest;
 import com.example.e_commerce.website.dtos.UserProfileResponse;
 import com.example.e_commerce.website.dtos.UserRegistrationRequest;
 import com.example.e_commerce.website.mapper.UserMapper;
@@ -57,14 +56,5 @@ public class UserService {
         }
         userRepository.deleteById(id);
         return "User deleted successfully!";
-    }
-
-    public String loginUser(UserLoginRequest loginRequest){
-        User user = userRepository.findByEmailId(loginRequest.getEmailId()).
-                orElseThrow(() -> new RuntimeException("Invalid email or password"));
-        if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
-            throw new RuntimeException("Invalid email or password");
-        }
-        return "Login successful!";
     }
 }
