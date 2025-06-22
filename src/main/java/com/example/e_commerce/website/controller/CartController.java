@@ -31,9 +31,10 @@ public class CartController {
 
     @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/getAll")
-    public List<CartResponse> getCartList(){
-        return cartService.getCartList();
+    public List<CartResponse> getAll(@RequestHeader("Authorization") String token) {
+        return cartService.getCartList(token);
     }
+
 
     @PreAuthorize("hasRole('CUSTOMER')")
     @DeleteMapping("/delete/{id}")

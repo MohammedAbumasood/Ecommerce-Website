@@ -39,7 +39,7 @@ public class ProductController {
         return product;
     }
 
-    @PreAuthorize("hasAnyRole('SELLER', 'CUSTOMER')")
+    //@PreAuthorize("hasAnyRole('SELLER', 'CUSTOMER')")
     @GetMapping("/findAll")
     public List<ProductResponse> findAllPro(){
         List<ProductResponse> responses = productService.findAllProducts();

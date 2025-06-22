@@ -33,7 +33,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String token;
         final String userEmail;
 
-
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -58,5 +57,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    // Skip JWT filter for swagger and public routes
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        return path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/swagger-ui.html")
+                || path.startsWith("/swagger-resources")
+                || path.startsWith("/webjars")
+                || path.startsWith("/api/v1/auth")
+                || path.startsWith("/api/v1/users/register")
+                || (request.getMethod().equals("GET") && path.startsWith("/api/v1/products"));
     }
 }
