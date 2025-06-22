@@ -3,7 +3,7 @@ services:
     name: ecommerce-backend
     runtime: java
     plan: free
-    branch: main
+    branch: master
     buildCommand: mvn clean package -DskipTests
     startCommand: java -jar target/e-commerce-website-0.0.1-SNAPSHOT.jar
     envVars:
