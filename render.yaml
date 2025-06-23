@@ -15,3 +15,7 @@ services:
         value: mzBmYCVcdHrhaOSfkMaILDBYlnSKIHCA
       - key: JWT_SECRET
         value: shopeasysecretkeythisisverysecrettobekept12345
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+        value: org.hibernate.dialect.MySQLDialect
